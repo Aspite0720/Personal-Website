@@ -1,0 +1,293 @@
+/* =========================================================
+   TOKENS
+   ========================================================= */
+:root {
+  --ink:        #16212E;   /* primary text / dark surfaces */
+  --paper:      #ECEAE0;   /* page background */
+  --paper-2:    #E1DCC9;   /* card / panel background */
+  --line:       #C6BFA9;   /* hairline rule */
+  --teal:       #2B6E62;   /* stamp ink / primary accent */
+  --teal-deep:  #1E4E45;
+  --red:        #A63A2E;   /* status stamp / alert accent */
+  --paper-rgb:  236, 234, 224;
+}
+
+/* =========================================================
+   BASE
+   ========================================================= */
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 1.02rem;
+  line-height: 1.65;
+}
+
+h1, h2, h3, h4, .display-font {
+  font-family: "Archivo", "Arial Narrow", sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.mono, .code-tag, .eyebrow, .navbar-brand, .btn, nav .nav-link, footer, .form-label, .status-stamp {
+  font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+
+a { color: var(--teal-deep); }
+a:hover { color: var(--red); }
+
+::selection { background: var(--teal); color: var(--paper); }
+
+/* focus visibility */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+/* =========================================================
+   DOCUMENT HEADER STRIP (top of every page)
+   ========================================================= */
+.doc-strip {
+  border-bottom: 1px solid var(--line);
+  background: var(--paper);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  padding: 0.4rem 0;
+}
+.doc-strip .code-tag { color: var(--teal-deep); }
+.doc-strip .code-tag::before { content: "FILE / "; color: var(--line); }
+
+/* =========================================================
+   NAVBAR — folder-tab style
+   ========================================================= */
+.navbar {
+  background: var(--paper);
+  border-bottom: 2px solid var(--ink);
+  padding-top: 0.6rem;
+  padding-bottom: 0;
+}
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  color: var(--ink) !important;
+}
+.navbar-brand small {
+  display: block;
+  font-size: 0.62rem;
+  color: var(--teal-deep);
+  letter-spacing: 0.12em;
+  font-weight: 400;
+}
+.nav-tabs-custom {
+  gap: 0.15rem;
+}
+.nav-tabs-custom .nav-link {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  padding: 0.55rem 1rem 0.5rem;
+  margin-bottom: 0;
+  position: relative;
+  top: 2px;
+}
+.nav-tabs-custom .nav-link.active {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+.nav-tabs-custom .nav-link:hover:not(.active) {
+  background: #d8d2bd;
+}
+
+/* =========================================================
+   STAMP — signature element
+   ========================================================= */
+.stamp {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid var(--teal);
+  color: var(--teal);
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  transform: rotate(-6deg) scale(0.9);
+  opacity: 0;
+  text-align: center;
+  line-height: 1.15;
+  animation: stamp-down 0.5s cubic-bezier(.2,.9,.3,1.3) 0.35s forwards;
+}
+.stamp .stamp-top { font-size: 0.65rem; letter-spacing: 0.18em; }
+.stamp .stamp-main { font-size: 1.05rem; font-weight: 700; letter-spacing: 0.1em; }
+@keyframes stamp-down {
+  0%   { opacity: 0; transform: rotate(-6deg) scale(1.6); }
+  60%  { opacity: 1; transform: rotate(-6deg) scale(0.92); }
+  100% { opacity: 1; transform: rotate(-6deg) scale(1); }
+}
+
+/* small inline status stamps used on project/course cards */
+.status-stamp {
+  display: inline-block;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  border: 1.5px solid currentColor;
+  border-radius: 4px;
+  padding: 0.15rem 0.5rem;
+  transform: rotate(-3deg);
+}
+.status-stamp.complete { color: var(--teal); }
+.status-stamp.progress { color: var(--red); }
+.status-stamp.planned  { color: #7A6E4E; }
+
+/* =========================================================
+   HERO
+   ========================================================= */
+.hero {
+  padding: 4.5rem 0 3.5rem;
+  border-bottom: 1px solid var(--line);
+}
+.hero h1 {
+  font-size: clamp(2.1rem, 5vw, 3.4rem);
+  line-height: 1.05;
+}
+.hero .lede {
+  font-size: 1.15rem;
+  max-width: 42rem;
+  color: #3A3227;
+}
+
+/* =========================================================
+   RULES / DIVIDERS
+   ========================================================= */
+hr.file-rule {
+  border: none;
+  border-top: 1px dashed var(--line);
+  margin: 3rem 0;
+}
+
+.eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: var(--teal-deep);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.eyebrow::before { content: "// "; color: var(--line); }
+
+/* =========================================================
+   CARDS / PANELS
+   ========================================================= */
+.panel {
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 1.6rem;
+}
+.panel + .panel { margin-top: 1.25rem; }
+
+.ledger-row {
+  border-bottom: 1px solid var(--line);
+  padding: 1rem 0;
+}
+.ledger-row:last-child { border-bottom: none; }
+.ledger-row .code-tag {
+  color: var(--teal-deep);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+.btn-stamp {
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 6px;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  padding: 0.65rem 1.3rem;
+  border: 1px solid var(--ink);
+}
+.btn-stamp:hover { background: var(--teal-deep); color: var(--paper); border-color: var(--teal-deep); }
+
+.btn-outline-stamp {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 6px;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  padding: 0.6rem 1.25rem;
+}
+.btn-outline-stamp:hover { background: var(--ink); color: var(--paper); }
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+footer.file-footer {
+  border-top: 2px solid var(--ink);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  color: #5B5340;
+  padding: 1rem 0;
+}
+
+/* =========================================================
+   FORMS (contact page)
+   ========================================================= */
+.form-control, .form-select {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-family: "Source Serif 4", serif;
+}
+.form-control:focus, .form-select:focus {
+  background: var(--paper);
+  border-color: var(--teal);
+  box-shadow: 0 0 0 0.2rem rgba(43,110,98,0.15);
+}
+.form-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--teal-deep);
+}
+#form-status {
+  font-size: 0.85rem;
+}
+
+/* =========================================================
+   MISC
+   ========================================================= */
+.timeline-item { border-left: 2px solid var(--line); padding-left: 1.2rem; padding-bottom: 1.8rem; position: relative; }
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -6px; top: 4px;
+  width: 10px; height: 10px;
+  background: var(--teal);
+  border-radius: 50%;
+}
+.timeline-item:last-child { padding-bottom: 0; }
+
+.skill-tag {
+  display: inline-block;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  border-radius: 20px;
+  padding: 0.3rem 0.85rem;
+  font-size: 0.78rem;
+  margin: 0.2rem 0.3rem 0.2rem 0;
+}
